@@ -1,0 +1,50 @@
+############################################### Set-up AdelaiNet ######################################################################
+
+FROM nvidia/cuda:10.2-devel-ubuntu18.04
+
+RUN apt-get update && apt-get install -y libglib2.0-0 && apt-get clean
+
+RUN apt-get install -y wget htop byobu git gcc g++ vim libsm6 libxext6 libxrender-dev lsb-core
+
+RUN cd /root && wget https://repo.anaconda.com/archive/Anaconda3-2020.07-Linux-x86_64.sh
+
+RUN cd /root && bash Anaconda3-2020.07-Linux-x86_64.sh -b -p ./anaconda3
+
+ENV PATH=/root/anaconda3/bin:$PATH
+
+RUN bash -c "source /root/anaconda3/etc/profile.d/conda.sh && conda config --set remote_read_timeout_secs 1000000 && conda install pytorch torchvision cudatoolkit=10.2 -c pytorch"
+
+#for sagemaker
+RUN bash -c "source /root/anaconda3/etc/profile.d/conda.sh && conda install protobuf"
+
+RUN bash -c "/root/anaconda3/bin/conda init bash"
+
+RUN mkdir -p /opt/ml/code/
+RUN mkdir -p /opt/ml/model/output
+
+WORKDIR /opt/ml/code/
+RUN git clone https://github.com/facebookresearch/detectron2.git
+######## 
+# temp fix as detectron2 installation is broken:
+WORKDIR /opt/ml/code/detectron2
+RUN git checkout b675879664a58546adaa99420e78abac09458dde
+WORKDIR /opt/ml/code/
+####
+RUN bash -c "source /root/anaconda3/etc/profile.d/conda.sh && conda activate base && cd detectron2 && python setup.py build develop"
+
+#RUN git clone https://github.com/aim-uofa/AdelaiDet.git adet
+
+COPY . /opt/ml/code/AdelaiDet
+
+WORKDIR /opt/ml/code/AdelaiDet
+RUN bash -c "source /root/anaconda3/etc/profile.d/conda.sh && conda activate base && python setup.py build develop"
+
+RUN rm /root/Anaconda3-2020.07-Linux-x86_64.sh
+
+################################################# AWS SageMaker ######################################################################
+
+ENV IS_THIS_DOCKER_ENVIRONMENT yes
+ENV CPU_OR_GPU_RUNTIME cpu
+
+ENTRYPOINT ["conda", "run", "-n", "base", "python", "cloud/aws_entrypoint.py"]
+

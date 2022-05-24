@@ -1,0 +1,171 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: Demo",
+            "type": "python",
+            "request": "launch",
+            "program": "demo/demo.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--config-file", "configs/BAText/SevenSegment/attn_R_50.yaml",
+                "--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\seven_segment_synthesis\\images",
+                "--opts", "MODEL.WEIGHTS", "models/aws_test_model.pth",
+                "MODEL.DEVICE", "cpu",
+            ]
+        },
+        {
+            "name": "Python: Webcam Demo",
+            "type": "python",
+            "request": "launch",
+            "program": "demo/demo.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--config-file", "configs/BAText/CTW1500/attn_R_50.yaml",
+                "--webcam",
+                "--opts", "MODEL.WEIGHTS", "models/ctw1500_attn_R_50.pth",
+                "MODEL.DEVICE", "cpu",
+            ]
+        },
+        {
+            "name": "Python: Eval",
+            "type": "python",
+            "request": "launch",
+            "program": "tool/train_net.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--config-file", "configs/BAText/SevenSegment/attn_R_50.yaml",
+                "--eval-only",
+                "MODEL.WEIGHTS", "models/aws_test_model.pth",
+                "MODEL.DEVICE", "cpu",
+                "MODEL.BATEXT.EVAL_TYPE", "3"
+            ]
+        },
+        {
+            "name": "Python: Train",
+            "type": "python",
+            "request": "launch",
+            "program": "tool/train_net.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--config-file", "configs/BAText/SevenSegment/attn_R_50.yaml",
+                "MODEL.WEIGHTS", "models/v1_pretrain_attn_R_50.pth",
+                "MODEL.DEVICE", "cpu",
+                "MODEL.BATEXT.EVAL_TYPE", "3"
+            ]
+        },
+        {
+            "name": "Python: AWS Test Train",
+            "type": "python",
+            "request": "launch",
+            "program": "docker/aws-test.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+        },
+        {
+            "name": "Python: AWS Deploy Train",
+            "type": "python",
+            "request": "launch",
+            "program": "docker/aws-train.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+        },
+        {
+            "name": "Python: Build/Push docker image",
+            "type": "python",
+            "request": "launch",
+            "program": "docker/docker_image.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "build+push",
+                "--imageName", "sevensegmenttrain",
+                "--device", "cpu"
+            ]
+        },
+        {
+            "name": "Python: Build docker image",
+            "type": "python",
+            "request": "launch",
+            "program": "docker/docker_image.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "build",
+                "--imageName", "sevensegmenttrain"
+            ]
+        },
+        {
+            "name": "Python: Push docker image",
+            "type": "python",
+            "request": "launch",
+            "program": "docker/docker_image.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "push",
+                "--imageName", "sevensegmenttrain"
+            ]
+        },
+        {
+            "name": "Python: AWS Deploy Local",
+            "type": "python",
+            "request": "launch",
+            "program": "cloud/aws_deploy.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "local",
+                //"--build" // rebuild image
+                "--imageName", "sevensegmenttrain",
+                "--project", "blueye_sevensegment",
+                "--job", "sevensegmenttrain",
+                "--input", "\\Users\\benho\\Documents\\Blueye\\Data\\seven_segment_synthesis",
+                "--output", "\\Users\\benho\\Documents\\Blueye\\AWS",
+            ]
+        },
+        {
+            "name": "Python: AWS Deploy SageMaker",
+            "type": "python",
+            "request": "launch",
+            "program": "cloud/aws_deploy.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "aws",
+                //"--build" // rebuild image
+                //"--instance", "ml.g4dn.xlarge",
+                "--instance", "ml.m5.xlarge",
+                "--project", "blueye_sevensegment_dataset1",
+                "--job", "test1",
+                "--input", "SevenSegmentSynthesis/dataset_1/",
+            ]
+        },
+        {
+            "name": "Python: AWS Entrypoint Check",
+            "type": "python",
+            "request": "launch",
+            "program": "cloud/aws_entrypoint.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "train"
+            ]
+        }
+    ]
+}

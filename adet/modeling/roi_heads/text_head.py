@@ -192,7 +192,9 @@ class TextHead(nn.Module):
         if self.training:
             beziers = [p.beziers for p in targets]
             if not self.aet:
-                targets = torch.cat([x.text for x in targets], dim=0)
+                 new_var = [x.text for x in targets]
+                 print(new_var)
+                 targets = torch.cat([x.text for x in targets], dim=0)
             else:
                 beziers2 = [p.top_feat for p in proposals]
                 for k in range(len(targets)):

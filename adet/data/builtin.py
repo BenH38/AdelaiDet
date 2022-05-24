@@ -35,6 +35,14 @@ _PREDEFINED_SPLITS_TEXT = {
     "icdar2015_test": ("icdar2015/test_images", "icdar2015/ic15_test.json"),
 }
 
+# load seven segment dataset, dependent on environment
+if os.environ.get("IS_THIS_DOCKER_ENVIRONMENT") == "yes":
+    _PREDEFINED_SPLITS_TEXT["sevensegment_train"] = ("/opt/ml/input/data/training/seven_segment_synthesis/train/images", "/opt/ml/input/data/training/seven_segment_synthesis/train/ground_truth.json")
+    _PREDEFINED_SPLITS_TEXT["sevensegment_test"] = ("/opt/ml/input/data/training/seven_segment_synthesis/test/images", "/opt/ml/input/data/training/seven_segment_synthesis/test/ground_truth.json")
+
+else:
+    _PREDEFINED_SPLITS_TEXT["sevensegment_train"] = ("seven_segment_synthesis/images", "seven_segment_synthesis/ground_truth.json")
+
 metadata_text = {
     "thing_classes": ["text"]
 }

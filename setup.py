@@ -84,7 +84,11 @@ setup(
         "Polygon3",
         "shapely",
         "scikit-image",
-        "editdistance"
+        "editdistance",
+        "opencv-python-headless",
+        "multi-model-server",
+        "sagemaker-inference",
+        "protobuf"
     ],
     extras_require={"all": ["psutil"]},
     ext_modules=get_extensions(),

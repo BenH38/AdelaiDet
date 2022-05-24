@@ -1,0 +1,19 @@
+_BASE_: "Base-SevenSegment.yaml"
+MODEL:
+  WEIGHTS: "weights/batext/pretrain_attn_R_50.pth"
+  RESNETS:
+    DEPTH: 50
+  BATEXT:
+    RECOGNIZER: "attn" # "attn" "rnn"
+    VOC_SIZE: 12
+    CUSTOM_DICT: "C:\\Users\\benho\\Documents\\Blueye\\Experiments\\AdelaiDet\\datasets\\seven_segment_synthesis\\custom_dict.p"
+SOLVER:
+  IMS_PER_BATCH: 2
+  BASE_LR: 0.001
+  MAX_ITER: 1000
+  CHECKPOINT_PERIOD: 1000
+TEST:
+  EVAL_PERIOD: 1000
+OUTPUT_DIR: "output/batext/sevensegment/attn_R_50"
+
+

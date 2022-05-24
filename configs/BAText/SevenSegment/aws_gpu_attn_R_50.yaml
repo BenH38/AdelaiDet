@@ -1,0 +1,20 @@
+_BASE_: "Base-SevenSegment.yaml"
+MODEL:
+  WEIGHTS: "/opt/ml/code/AdelaiDet/models/v1_pretrain_attn_R_50.pth"
+  RESNETS:
+    DEPTH: 50
+  BATEXT:
+    RECOGNIZER: "attn" # "attn" "rnn"
+    VOC_SIZE: 12
+    CUSTOM_DICT: "/opt/ml/input/data/training/seven_segment_synthesis/train/custom_dict.p"
+  DEVICE: "gpu"
+SOLVER:
+  IMS_PER_BATCH: 8
+  BASE_LR: 0.001
+  MAX_ITER: 10
+  CHECKPOINT_PERIOD: 1000
+TEST:
+  EVAL_PERIOD: 1000
+OUTPUT_DIR: "/opt/ml/model/output/seven_seg_attn_R_50"
+
+

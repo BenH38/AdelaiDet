@@ -1,8 +1,11 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
+import os
+# UNSAFE
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
 import argparse
 import glob
 import multiprocessing as mp
-import os
 import time
 import cv2
 import tqdm
@@ -15,7 +18,6 @@ from adet.config import get_cfg
 
 # constants
 WINDOW_NAME = "COCO detections"
-
 
 def setup_cfg(args):
     # load config from file and command-line arguments
@@ -65,6 +67,7 @@ def get_parser():
 
 
 if __name__ == "__main__":
+    
     mp.set_start_method("spawn", force=True)
     args = get_parser().parse_args()
     logger = setup_logger()

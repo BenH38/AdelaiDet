@@ -34,7 +34,6 @@ dist/
 
 # Pycharm editor settings
 .idea
-.vscode
 .python-version
 
 # project dirs
@@ -42,6 +41,9 @@ dist/
 /datasets/lvis
 /datasets/pic
 /datasets/ytvos
+/datasets/seven_segment_synthesis
+/datasets/evaluation
+/datasets/totaltext
 /models
 /demo_outputs
 /example_inputs

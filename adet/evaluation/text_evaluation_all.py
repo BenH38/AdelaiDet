@@ -71,6 +71,12 @@ class TextEvaluator():
             self._text_eval_gt_path = "datasets/evaluation/gt_icdar2015.zip"
             self._word_spotting = False
             self.dataset_name = "icdar2015"
+        elif "sevensegment" in dataset_name:
+            if os.environ.get("IS_THIS_DOCKER_ENVIRONMENT") == "yes":
+                self._text_eval_gt_path = "/opt/ml/input/data/training/seven_segment_synthesis/test/gt_sevensegment.zip"
+            else:
+                self._text_eval_gt_path = "datasets/evaluation/gt_sevensegment.zip"
+            self._word_spotting = False
         elif "custom" in dataset_name:
             self._text_eval_gt_path = "datasets/evaluation/gt_custom.zip"
             self._word_spotting = False

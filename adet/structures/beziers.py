@@ -42,3 +42,6 @@ class Beziers:
         b = self.tensor[item]
         assert b.dim() == 2, "Indexing on Boxes with {} failed to return a matrix!".format(item)
         return Beziers(b)
+    
+    def __len__(self):
+        return self.tensor.shape[0]
