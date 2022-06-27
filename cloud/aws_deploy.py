@@ -3,7 +3,7 @@ import os
 import sys
 from sagemaker.estimator import Estimator
 
-from cloud.aws_config import AwsConfig
+from cloud.AwsConfig import AwsConfig
 from docker.docker_image import buildImage, pushImage
 
 def parseArgs():

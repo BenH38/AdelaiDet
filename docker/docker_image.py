@@ -3,7 +3,7 @@ import os
 import sys
 from omegaconf import ValidationError
 
-from cloud.aws_config import AwsConfig
+from cloud.AwsConfig import AwsConfig
 
 def parseArgs():
     parser = argparse.ArgumentParser(description="Build docker file and push to AWS ECR")

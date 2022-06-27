@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
+import os
+# UNSAFE
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
+
 import argparse
 import numpy as np
-import os
 from itertools import chain
 import cv2
 import tqdm

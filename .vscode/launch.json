@@ -13,7 +13,22 @@
             "justMyCode": true
         },
         {
-            "name": "Python: Demo",
+            "name": "Python: Demo TotalText",
+            "type": "python",
+            "request": "launch",
+            "program": "demo/demo.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--config-file", "configs/BAText/TotalText/attn_R_50.yaml",
+                "--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\totaltext\\totaltext\\test_images",
+                //"--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\seven_segment_synthesis\\images",
+                "--opts", "MODEL.WEIGHTS", "models/v1_pretrain_attn_R_50.pth",
+                "MODEL.DEVICE", "cpu",
+            ]
+        },
+        {
+            "name": "Python: Demo SevenSegment",
             "type": "python",
             "request": "launch",
             "program": "demo/demo.py",
@@ -21,8 +36,27 @@
             "justMyCode": true,
             "args": [
                 "--config-file", "configs/BAText/SevenSegment/attn_R_50.yaml",
-                "--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\seven_segment_synthesis\\images",
-                "--opts", "MODEL.WEIGHTS", "models/aws_test_model.pth",
+                "--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\TestImages",
+                //"--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\seven_segment_synthesis\\images",
+                "--opts", "MODEL.WEIGHTS", "models/aws_test_model_4.pth",
+                "MODEL.DEVICE", "cpu",
+            ]
+        },
+        {
+            "name": "Python: Visualise Dataset",
+            "type": "python",
+            "request": "launch",
+            "program": "tool/visualize_data.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--source", "dataloader",
+                "--config-file", "configs/BAText/SevenSegment/attn_R_50.yaml",
+                "--output-dir", "C:\\Users\\benho\\Documents\\Blueye\\Experiments\\Visualisations\\adelaidet-input-test1",
+                "--show",
+                // "--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\TestImages",
+                // "--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\seven_segment_synthesis\\images",
+                "--opts", "MODEL.WEIGHTS", "models/aws_test_model_3.pth",
                 "MODEL.DEVICE", "cpu",
             ]
         },
@@ -152,8 +186,21 @@
                 //"--instance", "ml.g4dn.xlarge",
                 "--instance", "ml.m5.xlarge",
                 "--project", "blueye_sevensegment_dataset1",
-                "--job", "test1",
+                "--job", "test4",
                 "--input", "SevenSegmentSynthesis/dataset_1/",
+            ]
+        },
+        {
+            "name": "Python: AWS Call Endpoint",
+            "type": "python",
+            "request": "launch",
+            "program": "cloud/aws_call.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--endpointUrl", "",
+                "--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\seven_segment_synthesis\\images\\000000.jpg",
+                "--output", "JSON",
             ]
         },
         {
