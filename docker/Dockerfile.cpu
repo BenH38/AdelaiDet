@@ -45,6 +45,8 @@ RUN rm /root/Anaconda3-2020.07-Linux-x86_64.sh
 
 ENV IS_THIS_DOCKER_ENVIRONMENT yes
 ENV CPU_OR_GPU_RUNTIME cpu
+# To fix this issue https://stackoverflow.com/questions/53716342/how-do-i-print-debugging-info-from-sagemaker-training
+ENV PYTHONUNBUFFERED=TRUE
 
 ENTRYPOINT ["conda", "run", "-n", "base", "python", "cloud/aws_entrypoint.py"]
 
