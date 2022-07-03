@@ -47,7 +47,8 @@ class TextVisualizer(Visualizer):
                 else:
                     s += str(chr(self.CTLABELS[c]))
             elif c == self.voc_size -1:
-                s += u'口'
+                #s += u'口'
+                pass
         return s
 
     def _ctc_decode_recognition(self, rec):
