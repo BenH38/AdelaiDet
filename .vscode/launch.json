@@ -213,7 +213,21 @@
             "args": [
                 "--method", "external",
                 "--endpoint", "blueye-digitalmeter",
-                "--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\seven_segment_synthesis\\images\\000010.jpg",
+                //"--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\seven_segment_synthesis\\images\\000010.jpg",
+                "--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\TestImages\\S20211006_0014.jpg",
+                "--vis",
+            ]
+        },
+        {
+            "name": "Python: AWS Sagemaker Call Demo",
+            "type": "python",
+            "request": "launch",
+            "program": "cloud/sgmkr_inf_demo.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                //"--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\seven_segment_synthesis\\images\\000010.jpg",
+                "--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\TestImages\\S20211006_0014.jpg",
                 "--vis",
             ]
         },

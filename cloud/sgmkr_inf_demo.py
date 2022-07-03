@@ -7,14 +7,16 @@ import sys
 import cv2
 import numpy as np
 import requests
-from sagemaker.predictor import Predictor
 import matplotlib.colors as mplc
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib import patches
 
-from cloud.AwsConfig import AwsConfig
-import boto3
+# PARAMETERS
+
+ENDPOINT_URL = "https://z9bl6b6fl3.execute-api.eu-west-1.amazonaws.com/test/predict"
+
+
 #Self contained visualiser for shipping
 class Visualiser():
     
@@ -197,23 +199,7 @@ class Visualiser():
         )
 
 def parseArgs():
-    parser = argparse.ArgumentParser(description="Call a sagemaker endpoint, using either SDK, API Gateway or Local request. Built in visualiser")
-    
-    parser.add_argument(
-        '--method', 
-        dest = "requestMethod",
-        help = "Request to the endpoint using AWS API Gateway, AWS SDK, or to a local server. [external, sdk, local]",
-        type=str, 
-        required=True, 
-    )
-    
-    parser.add_argument(
-        '--endpoint', 
-        dest = "endpointName",
-        help = "URL of the sagemaker endpoint to be called",
-        type=str, 
-        required=True, 
-    )
+    parser = argparse.ArgumentParser(description="Call a sagemaker endpoint (hosted on API gateway) with specified image")
     
     parser.add_argument(
         "--input",
@@ -247,52 +233,22 @@ def makePayload(img):
     
     return payload
     
-def sdkRequest(endpointName, img):
-    payload = makePayload(img)
-    """
-    #Send HTTP request
-    #TODO clean up status code handling and move print into main
-    predictor = Predictor(endpointName, content_type='application/json')
-    response = predictor.predict(data=payload, )
-    """
-    client = boto3.client("runtime.sagemaker")
-    response = client.invoke_endpoint(EndpointName=endpointName, Body=payload, ContentType="application/json")
-    
-    result = json.loads(response['Body'].read().decode())
-    
-    return result
 
 def externalRequest(img):
     payload = makePayload(img)
     
-    response = requests.post(AwsConfig.apiEndpointUrl, json=payload)
+    response = requests.post(ENDPOINT_URL, json=payload)
     
     print("RESPONSE CODE: " + str(response.status_code))
     
     return response.json()["body"]
 
-def localRequest(img):
-    payload = makePayload(img)
-    
-    response = requests.post("http://localhost:{}/invocations".format(AwsConfig.sagemakerInferencePort), json=payload)
-    
-    print("RESPONSE CODE: " + str(response.status_code))
-    
-    return response.json()
-
 def main(args):
     # Read image into memory
     img = cv2.imread(args.input)
 
-    if args.requestMethod == "local":
-        response = localRequest(img)
-    elif args.requestMethod == "sdk":
-        response = sdkRequest(args.endpointName, img)
-    elif args.requestMethod == "external":
-        response = externalRequest(img)
-    else:
-        raise AssertionError("ERROR: Invalid request argument. [external, sdk, local]")
-    
+    response = externalRequest(img)
+
     print(response)
     
     if args.vis:
@@ -300,7 +256,6 @@ def main(args):
         visualiser.drawPredictions(response)
         visualiser.show()
     
-
 
 if __name__ == "__main__":
     args = parseArgs()
