@@ -6,11 +6,9 @@ os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 
 import argparse
-from sagemaker_inference import model_server
-from adet.config.config import get_cfg
 
-from cloud.EndpointHandlerService import HandlerService
 from cloud.TrainHandlerService import TrainHandlerService
+from cloud.InferenceHandlerService import InferenceHandlerService
 
 
 
@@ -32,7 +30,7 @@ def parseArgs():
 def main(args):
     
     if args.mode == "serve":
-        model_server.start_model_server(handler_service=HandlerService)
+        InferenceHandlerService()
         
     elif args.mode =="train":
         TrainHandlerService()

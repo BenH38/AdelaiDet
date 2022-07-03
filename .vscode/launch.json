@@ -22,7 +22,6 @@
             "args": [
                 "--config-file", "configs/BAText/TotalText/attn_R_50.yaml",
                 "--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\totaltext\\totaltext\\test_images",
-                //"--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\seven_segment_synthesis\\images",
                 "--opts", "MODEL.WEIGHTS", "models/v1_pretrain_attn_R_50.pth",
                 "MODEL.DEVICE", "cpu",
             ]
@@ -191,16 +190,31 @@
             ]
         },
         {
-            "name": "Python: AWS Call Endpoint",
+            "name": "Python: AWS Call Endpoint - SDK Request",
             "type": "python",
             "request": "launch",
             "program": "cloud/aws_call.py",
             "console": "integratedTerminal",
             "justMyCode": true,
             "args": [
-                "--endpointUrl", "",
-                "--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\seven_segment_synthesis\\images\\000000.jpg",
-                "--output", "JSON",
+                "--method", "sdk",
+                "--endpoint", "blueye-digitalmeter",
+                "--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\seven_segment_synthesis\\images\\000010.jpg",
+                "--vis",
+            ]
+        },
+        {
+            "name": "Python: AWS Call Endpoint - API Request",
+            "type": "python",
+            "request": "launch",
+            "program": "cloud/aws_call.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--method", "external",
+                "--endpoint", "blueye-digitalmeter",
+                "--input", "C:\\Users\\benho\\Documents\\Blueye\\Data\\seven_segment_synthesis\\images\\000010.jpg",
+                "--vis",
             ]
         },
         {
@@ -211,7 +225,7 @@
             "console": "integratedTerminal",
             "justMyCode": true,
             "args": [
-                "train"
+                "serve"
             ]
         }
     ]

@@ -88,7 +88,8 @@ setup(
         "opencv-python-headless",
         "multi-model-server",
         "sagemaker-inference",
-        "protobuf"
+        "protobuf",
+        "flask"
     ],
     extras_require={"all": ["psutil"]},
     ext_modules=get_extensions(),

@@ -15,6 +15,11 @@ class AwsConfig():
     
     dockerUser = "benh38"
     
+    apiEndpointUrl = "https://z9bl6b6fl3.execute-api.eu-west-1.amazonaws.com/test"
+    sagemakerInferencePort = "8080"
+    savedModelDir = "/opt/ml/model"
+    savedModelName = "output/seven_seg_attn_R_50/model_final.pth"
+    
     availableGpuInstances = ["ml.p4d.24xlarge",
                                 "ml.p3.2xlarge",
                                 "ml.p3.8xlarge",
